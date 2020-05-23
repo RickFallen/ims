@@ -66,18 +66,14 @@ my_resnet = MyResNetFeatureExtractor(model).cuda()
 
 def extractor(data):
     since = time.time()
-    # read images images from a directory
-    # root = './index/'
     list_imgs_names = os.listdir(data)
-    # list_imgs_names
-    # create an array to store features
+    # 存图片和特征
     N = len(list_imgs_names)
     fea_all = np.zeros((N, 2048))
-    # define empy array to store image names
+    # 存储图片名称
     image_all = []
     # extract features
     for ind, img_name in enumerate(list_imgs_names):
-        # print(img_name)
         img_path = os.path.join(data, img_name)
         image_np = Image.open(img_path)
         image_np = np.array(image_np)
