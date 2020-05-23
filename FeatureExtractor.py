@@ -1,4 +1,4 @@
-# Import libraries 
+# Import libraries
 import torch
 import torch.nn as nn
 from torch.autograd import Variable
@@ -54,26 +54,26 @@ class MyResNetFeatureExtractor(nn.Module):
         return x
 
 
-# 使用resnet50架构
+# 使用预训练好的resnet50架构
 model = torchvision.models.resnet50(pretrained=True)
-
-# set the model train False since we are using our feature extraction network 
 model.train(False)
-
-# Set our model with pre-trained model 
 my_resnet = MyResNetFeatureExtractor(model).cuda()
 
 
 def extractor(data):
     since = time.time()
+    # read images images from a directory
+    # root = './index/'
     list_imgs_names = os.listdir(data)
-    # 存图片和特征
+    # list_imgs_names
+    # create an array to store features
     N = len(list_imgs_names)
     fea_all = np.zeros((N, 2048))
-    # 存储图片名称
+    # define empy array to store image names
     image_all = []
     # extract features
     for ind, img_name in enumerate(list_imgs_names):
+        # print(img_name)
         img_path = os.path.join(data, img_name)
         image_np = Image.open(img_path)
         image_np = np.array(image_np)
